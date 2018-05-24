@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/sdk" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-background-timer/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-calendar-events/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-fetch-blob/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-immersive/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-keep-awake/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-locale-detector/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-sound/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-vector-icons/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-webrtc/android" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
