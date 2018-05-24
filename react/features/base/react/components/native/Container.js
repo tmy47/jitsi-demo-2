@@ -9,6 +9,8 @@ import {
 
 import AbstractContainer from '../AbstractContainer';
 
+console.disableYellowBox = true;
+
 /**
  * Represents a container of React Native/mobile {@link Component} children.
  *
