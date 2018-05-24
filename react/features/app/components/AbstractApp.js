@@ -30,7 +30,7 @@ import { appNavigate, appWillMount, appWillUnmount } from '../actions';
  * FIXME: This is not at the best place here. This should be either in the
  * base/settings feature or a default in base/config.
  */
-const DEFAULT_URL = 'https://meet.jit.si';
+const DEFAULT_URL = 'https://jitsi-dev.synzi.com';
 
 /**
  * Base (abstract) class for main App component.
