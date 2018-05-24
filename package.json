@@ -113,9 +113,6 @@
     "lint": "eslint . && flow",
     "validate": "npm ls"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "browser": {
     "autosize": "./node_modules/autosize/build/jquery.autosize.js",
     "jQuery-Impromptu": "jQuery-Impromptu/src/jquery-impromptu.js"
