@@ -1,0 +1,93 @@
+body.welcome-page {
+    background: inherit;
+    overflow: auto;
+}
+
+.welcome {
+    font-family: $welcomePageFontFamily;
+    height: 100%;
+    position: relative;
+
+    .header {
+        align-items: center;
+        background: $welcomePageHeaderBackground;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            margin-top: 120px;
+            margin-bottom: 20px;
+            max-width: calc(100% - 40px);
+            min-height: 286px;
+            width: 645px;
+        }
+
+        .header-text-title {
+            color: $welcomePageTitleColor;
+            font-size: 48px;
+            letter-spacing: -1px;
+            line-height: 58px;
+            margin-bottom: 20px;
+        }
+
+        .header-text-description {
+            color: $welcomePageDescriptionColor;
+            font-size: 20px;
+            line-height: 28px;
+            opacity: 0.8;
+        }
+
+        .header-image {
+            background-image: url(../images/welcome_page/curves.png);
+            background-size: contain;
+            height: 209px;
+            position: absolute;
+            width: 1070px;
+        }
+
+        #new_enter_room {
+            align-items: center;
+            display: flex;
+            margin-bottom: 20px;
+            max-width: calc(100% - 40px);
+            position: relative;
+            z-index: 2;
+
+            .enter-room-input {
+                display: inline-block;
+                margin-right: 15px;
+                width: 350px;
+            }
+        }
+    }
+
+    .welcome-page-button {
+        font-size: 16px;
+    }
+}
+
+.welcome.with-content {
+    .header {
+        min-height: 552px;
+    }
+    .header-image {
+        left: -61px;
+        top: 401px;
+    }
+}
+
+.welcome.without-content {
+    .header {
+        height: 100%;
+    }
+    .header-image {
+        bottom: -20px;
+        left: 0;
+    }
+}
