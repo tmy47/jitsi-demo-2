@@ -3,4 +3,13 @@
 /node_modules
 /ios/Pods
 /ios/Podfile.lock
-*/xcuserdata
+.DS_Store
+*.pbxuser
+*.xccheckout
+*.xcuserstate
+*.xcuserdata
+*/xcuserdata/*
+*.gradle
+*.idea
+*app
+/android/.gradle
