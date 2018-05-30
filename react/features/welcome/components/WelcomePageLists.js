@@ -61,11 +61,7 @@ class WelcomePageLists extends Component<Props> {
             component: RecentList,
             icon: isAndroid ? 'restore' : IOS_RECENT_LIST_ICON,
             title: t('welcomepage.recentList')
-        }, {
-            component: MeetingList,
-            icon: isAndroid ? 'event_note' : IOS_CALENDAR_ICON,
-            title: t('welcomepage.calendar')
-        } ];
+        }];
     }
 
     /**
