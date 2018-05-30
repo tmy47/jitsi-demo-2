@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableHighlight,
     TouchableOpacity,
-    View
+    View,
+    Modal
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -27,7 +28,10 @@ import LocalVideoTrackUnderlay from './LocalVideoTrackUnderlay';
 import styles, { PLACEHOLDER_TEXT_COLOR } from './styles';
 import VideoSwitch from './VideoSwitch';
 import WelcomePageLists from './WelcomePageLists';
-import WelcomePageSideBar from './WelcomePageSideBar';
+import SynziHeader from '../../synzi/SynziHeader';
+
+
+
 
 /**
  * The native container rendering the welcome page.
@@ -35,6 +39,8 @@ import WelcomePageSideBar from './WelcomePageSideBar';
  * @extends AbstractWelcomePage
  */
 class WelcomePage extends AbstractWelcomePage {
+
+
     /**
      * Constructor of the Component.
      *
@@ -43,14 +49,20 @@ class WelcomePage extends AbstractWelcomePage {
     constructor(props) {
         super(props);
 
+        this.state.roomName = 'myroom';
         this.state._fieldFocused = false;
         this.state.hintBoxAnimation = new Animated.Value(0);
+        this.state.modalVisible = false;
 
         // Bind event handlers so they are only bound once per instance.
         this._getHintBoxStyle = this._getHintBoxStyle.bind(this);
         this._onFieldFocusChange = this._onFieldFocusChange.bind(this);
         this._onShowSideBar = this._onShowSideBar.bind(this);
         this._renderHintBox = this._renderHintBox.bind(this);
+    }
+
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
     }
 
     /**
@@ -66,11 +78,11 @@ class WelcomePage extends AbstractWelcomePage {
 
         const { dispatch } = this.props;
 
-        if (this.props._settings.startAudioOnly) {
-            dispatch(destroyLocalTracks());
-        } else {
+        // if (this.props._profile.startAudioOnly) {
+        //     dispatch(destroyLocalTracks());
+        // } else {
             dispatch(createDesiredLocalTracks(MEDIA_TYPE.VIDEO));
-        }
+        //}
     }
 
     /**
@@ -85,46 +97,76 @@ class WelcomePage extends AbstractWelcomePage {
         const { t } = this.props;
 
         return (
-            <LocalVideoTrackUnderlay style = { styles.welcomePage }>
-                <View style = { pageStyle }>
-                    {/* <Header style = { styles.header }>
-                        {/* <TouchableOpacity onPress = { this._onShowSideBar } >
-                            <Icon
-                                name = 'menu'
-                                style = { buttonStyle } />
-                        </TouchableOpacity>
-                        <VideoSwitch /> }
-                    </Header> */}
-                    <SafeAreaView style = { styles.roomContainer } >
-                        <View style = { styles.joinControls } >
-                            <TextInput
-                                accessibilityLabel = { 'Input room name.' }
-                                autoCapitalize = 'none'
-                                autoComplete = { false }
-                                autoCorrect = { false }
-                                autoFocus = { false }
-                                onBlur = { this._onFieldFocusChange(false) }
-                                onChangeText = { this._onRoomChange }
-                                onFocus = { this._onFieldFocusChange(true) }
-                                onSubmitEditing = { this._onJoin }
-                                placeholder = { t('welcomepage.roomname') }
-                                placeholderTextColor = {
-                                    PLACEHOLDER_TEXT_COLOR
-                                }
-                                returnKeyType = { 'go' }
-                                style = { styles.textInput }
-                                underlineColorAndroid = 'transparent'
-                                value = { this.state.room } />
-                            {
-                                this._renderHintBox()
-                            }
+
+            
+            <View style={{
+                    marginTop:22, 
+                    backgroundColor:'#000000',
+                    flex: 1,
+                    flexDirection: 'column' 
+                }}>
+                <SynziHeader headerText={'header'} />
+                <TouchableHighlight style={{
+                    alignItems: 'center',
+                    backgroundColor:'#ffb100',
+                    width: 150, 
+                    height: 50,
+                    padding: 10,
+                    borderRadius: 10
+                }}
+                    onPress={() => {
+                        this.setModalVisible(true);
+                    }}>
+                    <Text style={{justifyContent: 'center', marginTop:5}}>Start Conference</Text>
+                </TouchableHighlight>
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        alert('Modal has been closed.');
+                    }}>
+                    <LocalVideoTrackUnderlay style = { styles.welcomePage }>
+                        <View style = { pageStyle }>
+                            <Header style = { styles.header }>
+                                <TouchableOpacity 
+                                    onPress={() => {
+                                        this.setModalVisible(false);
+                                    }}>
+                                    <Text>Hide Modal</Text>
+                                </TouchableOpacity>
+                            </Header>
+                            <SafeAreaView style = { styles.roomContainer } >
+                                <View style = { styles.joinControls } >
+                                    <TextInput
+                                        accessibilityLabel = { 'Input room name.' }
+                                        autoCapitalize = 'none'
+                                        autoComplete = { false }
+                                        autoCorrect = { false }
+                                        autoFocus = { false }
+                                        onBlur = { this._onFieldFocusChange(false) }
+                                        onChangeText = { this._onRoomChange }
+                                        onFocus = { this._onFieldFocusChange(true) }
+                                        onSubmitEditing = { this._onJoin }
+                                        placeholder = { t('welcomepage.roomname') }
+                                        placeholderTextColor = {
+                                            PLACEHOLDER_TEXT_COLOR
+                                        }
+                                        returnKeyType = { 'go' }
+                                        style = { styles.textInput }
+                                        underlineColorAndroid = 'transparent'
+                                        value = { this.state.room } />
+                                    {
+                                        this._renderHintBox()
+                                    }
+                                </View>
+                            </SafeAreaView>
+                            <WelcomePageLists disabled = { this.state._fieldFocused } />
+                            <SettingsView />
                         </View>
-                    </SafeAreaView>
-                    <WelcomePageLists disabled = { this.state._fieldFocused } />
-                    <SettingsView />
-                </View>
-                <WelcomePageSideBar />
-            </LocalVideoTrackUnderlay>
+                    </LocalVideoTrackUnderlay>
+                </Modal>
+            </View>
         );
     }
 
