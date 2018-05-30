@@ -4,9 +4,12 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId 'com.synzi.virtualcare'
-        versionName '0.1'
-        minSdkVersion 24
-        targetSdkVersion 27
+        versionCode Integer.parseInt("${version}")
+        versionName "1.9.${version}"
+
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
         ndk {
             abiFilters 'armeabi-v7a', 'x86'
         }
