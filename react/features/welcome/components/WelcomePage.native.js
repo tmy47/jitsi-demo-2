@@ -42,7 +42,7 @@ const containerStyle = {
     flexDirection: 'column',
     ...Platform.select({
       ios: {
-        marginTop:22
+        marginTop:0
       },
       android: {
         marginTop:0
@@ -135,7 +135,7 @@ class WelcomePage extends AbstractWelcomePage {
 
                     <TouchableHighlight style={{
                         backgroundColor:'#ffb100',
-                        width: 150, 
+                        width: 200, 
                         height: 50,
                         padding: 10,
                         borderRadius: 10,

@@ -22,7 +22,7 @@ const styles = {
     backgroundColor: '#BBBDBF',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 80,
     paddingTop: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -31,7 +31,7 @@ const styles = {
     position: 'relative'
   },
   textStyle: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'black',
     fontWeight: 'bold'
   }
