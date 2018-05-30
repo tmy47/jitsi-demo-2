@@ -7,7 +7,10 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     View,
-    Modal
+    Modal,
+    StyleSheet,
+    Platform,
+    Image
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -31,6 +34,22 @@ import WelcomePageLists from './WelcomePageLists';
 import SynziHeader from '../../synzi/SynziHeader';
 
 
+
+const containerStyle = {
+  container: {
+    backgroundColor:'#505050',
+    flex: 1,
+    flexDirection: 'column',
+    ...Platform.select({
+      ios: {
+        marginTop:22
+      },
+      android: {
+        marginTop:0
+      }
+    }),
+  },
+};
 
 
 /**
@@ -99,26 +118,46 @@ class WelcomePage extends AbstractWelcomePage {
         return (
 
             
-            <View style={{
-                    marginTop:22, 
-                    backgroundColor:'#000000',
-                    flex: 1,
-                    flexDirection: 'column' 
-                }}>
-                <SynziHeader headerText={'header'} />
-                <TouchableHighlight style={{
-                    alignItems: 'center',
-                    backgroundColor:'#ffb100',
-                    width: 150, 
-                    height: 50,
-                    padding: 10,
-                    borderRadius: 10
-                }}
-                    onPress={() => {
-                        this.setModalVisible(true);
+            <View style={containerStyle.container}>
+                
+                <View style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flexDirection: 'column',
+                        alignContent: 'stretch'
                     }}>
-                    <Text style={{justifyContent: 'center', marginTop:5}}>Start Conference</Text>
-                </TouchableHighlight>
+
+                    <SynziHeader style={{
+                            alignSelf: "stretch" 
+                        }} 
+                        headerText={'Virtual Care'} />
+
+                    <TouchableHighlight style={{
+                        backgroundColor:'#ffb100',
+                        width: 150, 
+                        height: 50,
+                        padding: 10,
+                        borderRadius: 10,
+                        alignItems:'center',
+                    }}
+                        onPress={() => {
+                            this.setModalVisible(true);
+                        }}>
+                        <Text style={{justifyContent: 'center', marginTop:5}}>Start Conference</Text>
+                    </TouchableHighlight>
+
+                    <Image
+                        style={{
+                            width: 150, 
+                            height: 30,
+                            marginBottom: 10,
+                        }}
+                        resizeMode="contain"
+                        source={require('../../synzi/images/poweredBySynzi.png')}
+                    />
+                </View>
+                
                 <Modal
                     animationType="slide"
                     transparent={false}

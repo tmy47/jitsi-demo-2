@@ -15,9 +15,11 @@ const SynziHeader = (props) => {
   );
 };
 
+
 const styles = {
   viewStyle: {
-    backgroundColor: '#F8F8F8',
+    alignSelf: "stretch",
+    backgroundColor: '#BBBDBF',
     justifyContent: 'center',
     alignItems: 'center',
     height: 60,
@@ -29,7 +31,9 @@ const styles = {
     position: 'relative'
   },
   textStyle: {
-    fontSize: 20
+    fontSize: 20,
+    color: 'black',
+    fontWeight: 'bold'
   }
 };
 
