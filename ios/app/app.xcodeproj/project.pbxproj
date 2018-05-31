@@ -279,7 +279,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.synzi.jitsi-meet";
+				PRODUCT_BUNDLE_IDENTIFIER = com.synzi.virtualcare;
 				PRODUCT_NAME = "jitsi-meet";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -311,7 +311,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.synzi.jitsi-meet";
+				PRODUCT_BUNDLE_IDENTIFIER = com.synzi.virtualcare;
 				PRODUCT_NAME = "jitsi-meet";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
