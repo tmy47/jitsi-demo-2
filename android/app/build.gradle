@@ -1,15 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    signingConfigs {
+        Test_Config {
+            keyPassword 'seattle47'
+            storeFile file('/Users/tparmentier/Desktop/Synzi/Documents/Android_Key')
+            storePassword 'seattle47'
+            keyAlias 'androidkey'
+        }
+    }
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId 'com.synzi.virtualcare'
-        versionCode Integer.parseInt("${version}")
+        versionCode 5
         versionName "1.9.${version}"
-
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-
         ndk {
             abiFilters 'armeabi-v7a', 'x86'
         }
@@ -22,17 +28,17 @@ android {
             exclude '/lib/arm64-v8a/**'
             exclude '/lib/x86_64/**'
         }
-        versionCode 2
+        signingConfig signingConfigs.Test_Config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.Test_Config
         }
     }
     productFlavors {
     }
-    buildToolsVersion '27.0.3'
 }
 
 dependencies {
