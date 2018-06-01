@@ -15,16 +15,18 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" image="initialLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="4B8-Xf-NDE">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="initialLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="4B8-Xf-NDE">
+                    <rect key="frame" x="90" y="140" width="300" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="KzG-5H-svV"/>
+                        <constraint firstAttribute="height" constant="200" id="wKP-hx-1Ok"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="4B8-Xf-NDE" secondAttribute="bottom" id="aFF-BR-glX"/>
-                <constraint firstItem="4B8-Xf-NDE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="glR-YN-1GF"/>
-                <constraint firstAttribute="trailing" secondItem="4B8-Xf-NDE" secondAttribute="trailing" id="tva-gl-jRX"/>
-                <constraint firstItem="4B8-Xf-NDE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yaV-1V-oEh"/>
+                <constraint firstItem="4B8-Xf-NDE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="OJZ-hA-1TY"/>
+                <constraint firstItem="4B8-Xf-NDE" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nad-BZ-UYl"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

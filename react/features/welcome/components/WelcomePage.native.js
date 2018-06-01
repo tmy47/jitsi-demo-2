@@ -144,7 +144,7 @@ class WelcomePage extends AbstractWelcomePage {
                         onPress={() => {
                             this.setModalVisible(true);
                         }}>
-                        <Text style={{justifyContent: 'center', marginTop:5}}>Start Conference</Text>
+                        <Text style={{justifyContent: 'center', marginTop:5}}>Start Video</Text>
                     </TouchableHighlight>
 
                     <Image
