@@ -22,6 +22,17 @@
 
 -             (BOOL)application:(UIApplication *)application
   didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  
+  
+  // Enables live reload programmatically...!
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  
+  NSMutableDictionary *settings = [(NSDictionary *)[defaults valueForKey:@"RCTDevMenu"] mutableCopy];
+  settings[@"liveReloadEnabled"] = @YES;
+  
+  [defaults setObject:settings forKey:@"RCTDevMenu"];
+  [defaults synchronize];
+  
     return [JitsiMeetView application:application
         didFinishLaunchingWithOptions:launchOptions];
 }

@@ -10,7 +10,9 @@ import {
     Modal,
     StyleSheet,
     Platform,
-    Image
+    Image,
+    Button,
+    StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -32,24 +34,21 @@ import styles, { PLACEHOLDER_TEXT_COLOR } from './styles';
 import VideoSwitch from './VideoSwitch';
 import WelcomePageLists from './WelcomePageLists';
 import SynziHeader from '../../synzi/SynziHeader';
+import SynziInput from '../../synzi/SynziInput';
+
 
 
 
 const containerStyle = {
   container: {
-    backgroundColor:'#505050',
+    backgroundColor:'#7f99ce',
     flex: 1,
     flexDirection: 'column',
-    ...Platform.select({
-      ios: {
-        marginTop:0
-      },
-      android: {
-        marginTop:0
-      }
-    }),
+    marginTop: 20
   },
 };
+
+
 
 
 /**
@@ -120,6 +119,12 @@ class WelcomePage extends AbstractWelcomePage {
             
             <View style={containerStyle.container}>
                 
+                <StatusBar
+                        backgroundColor="#404040"
+                        barStyle="light-content"
+                        translucent={true}
+                    />
+
                 <View style={{
                         flex: 1,
                         alignItems: 'center',
@@ -127,25 +132,81 @@ class WelcomePage extends AbstractWelcomePage {
                         flexDirection: 'column',
                         alignContent: 'stretch'
                     }}>
+         
 
                     <SynziHeader style={{
                             alignSelf: "stretch" 
                         }} 
                         headerText={'Virtual Care'} />
+                        
+                    {/* <Button style={{
+                            backgroundColor:'#00ffff',
+                            width: 200, 
+                            height: 50,
+                            padding: 10,
+                            borderRadius:30,
+                            alignItems:'center',
+                        }}
+                        title="Learn More"
+                        accessibilityLabel="Learn more about this purple button"
+                        onPress={() => {
+                            this.setModalVisible(true);
+                        }}/> */}
 
-                    <TouchableHighlight style={{
-                        backgroundColor:'#ffb100',
-                        width: 200, 
-                        height: 50,
-                        padding: 10,
-                        borderRadius: 10,
-                        alignItems:'center',
-                    }}
+
+
+                    <View style={{
+                            backgroundColor:'#677288',
+                            width: 300, 
+                            height: 300,
+                            padding: 10,
+                            borderRadius: 10,
+                            alignItems:'center'
+                        }}>
+                        <Text style={{
+                                justifyContent: 'center', 
+                                marginTop:5,
+                                fontWeight: 'bold',
+                                color: 'white',
+                                fontSize: 18
+                            }}>
+                            Sign In
+                        </Text>
+                        <View style={{height: 20}}/>
+                        <SynziInput
+                            placeholder="username"
+                            label="User"
+                            value={''}
+                        />
+                        <SynziInput
+                            placeholder="password"
+                            label="Password"
+                            value={''}
+                        />
+                        <View style={{height: 20}}/>
+                        <TouchableHighlight style={{
+                            backgroundColor:'#ffb100',
+                            width: 200, 
+                            height: 40,
+                            padding: 5,
+                            borderRadius: 10,
+                            alignItems:'center',
+                            marginBottom: 20
+                        }}
                         onPress={() => {
                             this.setModalVisible(true);
                         }}>
-                        <Text style={{justifyContent: 'center', marginTop:5}}>Start Video</Text>
-                    </TouchableHighlight>
+                            <Text style={{
+                                justifyContent: 'center',
+                                fontSize: 18,
+                                color: 'black',
+                                fontWeight: 'bold', 
+                                marginTop:0}}>
+                                Sign In
+                            </Text>
+                        </TouchableHighlight>
+                        
+                    </View>
 
                     <Image
                         style={{
@@ -159,7 +220,7 @@ class WelcomePage extends AbstractWelcomePage {
                 </View>
                 
                 <Modal
-                    animationType="slide"
+                    animationType="fade"
                     transparent={false}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
@@ -167,15 +228,41 @@ class WelcomePage extends AbstractWelcomePage {
                     }}>
                     <LocalVideoTrackUnderlay style = { styles.welcomePage }>
                         <View style = { pageStyle }>
-                            <Header style = { styles.header }>
-                                <TouchableOpacity 
-                                    onPress={() => {
-                                        this.setModalVisible(false);
-                                    }}>
-                                    <Text>Hide Modal</Text>
-                                </TouchableOpacity>
-                            </Header>
-                            <SafeAreaView style = { styles.roomContainer } >
+                            <SynziHeader style={{
+                                alignSelf: "stretch" 
+                            }} 
+                            headerText={'Virtual Care'} />
+
+                            <TouchableHighlight style={{
+                                    backgroundColor:'#ffb100',
+                                    width: 200, 
+                                    height: 40,
+                                    padding: 10,
+                                    borderRadius: 10,
+                                    alignItems:'center',
+                                    marginBottom: 20
+                                }}
+                                onPress={() => {
+                                    this._onJoin()
+                                    //this.setModalVisible(true);
+                                }}>
+                                    <Text style={{
+                                        justifyContent: 'center',
+                                        fontSize: 18,
+                                        color: 'black',
+                                        fontWeight: 'bold', 
+                                        marginTop:0}}>
+                                        Join Room
+                                    </Text>
+                                </TouchableHighlight>
+
+                            {/* <SafeAreaView style = { styles.roomContainer } >
+
+                                
+
+
+
+
                                 <View style = { styles.joinControls } >
                                     <TextInput
                                         accessibilityLabel = { 'Input room name.' }
@@ -199,7 +286,7 @@ class WelcomePage extends AbstractWelcomePage {
                                         this._renderHintBox()
                                     }
                                 </View>
-                            </SafeAreaView>
+                            </SafeAreaView> */}
                             <WelcomePageLists disabled = { this.state._fieldFocused } />
                             <SettingsView />
                         </View>

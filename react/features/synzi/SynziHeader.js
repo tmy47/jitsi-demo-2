@@ -1,6 +1,6 @@
 // Import libraries for making a component
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { translate } from '../base/i18n';
 
@@ -16,24 +16,34 @@ const SynziHeader = (props) => {
 };
 
 
+
 const styles = {
   viewStyle: {
     alignSelf: "stretch",
-    backgroundColor: '#BBBDBF',
+    backgroundColor: '#181818',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 70,
     paddingTop: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 2,
-    position: 'relative'
+    position: 'relative',
+    height: 60,
+    marginTop:0
   },
   textStyle: {
     fontSize: 18,
-    color: 'black',
-    fontWeight: 'bold'
+    color: 'white',
+    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        marginTop:-10,
+      },
+      android: {
+        marginTop:-15,
+      }
+    }),
   }
 };
 
