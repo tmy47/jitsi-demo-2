@@ -44,8 +44,41 @@ const containerStyle = {
     backgroundColor:'#7f99ce',
     flex: 1,
     flexDirection: 'column',
-    marginTop: 20
+    marginTop: 0
   },
+  synziButtonStyle:{
+    backgroundColor:'#ffb100',
+    width: 200, 
+    height: 40,
+    padding: 5,
+    borderRadius: 10,
+    alignItems:'center',
+    marginBottom: 20
+  },
+  synziButtonStyleDisabled:{
+    backgroundColor:'#cccccc',
+    width: 200, 
+    height: 40,
+    padding: 5,
+    borderRadius: 10,
+    alignItems:'center',
+    marginBottom: 20,
+    opacity:0.2
+  },
+  synziButtonText:{
+    justifyContent: 'center',
+    fontSize: 18,
+    color: 'black',
+    fontWeight: 'bold', 
+    marginTop:0
+  },
+  synziLoggedInUser:{
+    justifyContent: 'center',
+    fontSize: 16,
+    color: 'black',
+    fontWeight: 'bold', 
+    marginBottom:10
+  }
 };
 
 
@@ -67,7 +100,9 @@ class WelcomePage extends AbstractWelcomePage {
     constructor(props) {
         super(props);
 
-        this.state.roomName = 'myroom';
+        this.state.userName = '';
+        this.state.password = '';
+        this.state.typedRoomName = '';
         this.state._fieldFocused = false;
         this.state.hintBoxAnimation = new Animated.Value(0);
         this.state.modalVisible = false;
@@ -77,7 +112,9 @@ class WelcomePage extends AbstractWelcomePage {
         this._onFieldFocusChange = this._onFieldFocusChange.bind(this);
         this._onShowSideBar = this._onShowSideBar.bind(this);
         this._renderHintBox = this._renderHintBox.bind(this);
+
     }
+  
 
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
@@ -113,184 +150,174 @@ class WelcomePage extends AbstractWelcomePage {
     render() {
         const { buttonStyle, pageStyle } = Header;
         const { t } = this.props;
+        const loginButtonDisabled = () => (this.state.userName.length === 0 || this.state.password.length === 0);
+        const joinRoomButtonDisabled = () => this.state.typedRoomName.length === 0;
+
 
         return (
 
-            
             <View style={containerStyle.container}>
-                
-                <StatusBar
-                        backgroundColor="#404040"
-                        barStyle="light-content"
-                        translucent={true}
-                    />
 
                 <View style={{
                         flex: 1,
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         flexDirection: 'column',
-                        alignContent: 'stretch'
+                        alignContent: 'stretch',
+                        marginTop:0
                     }}>
          
-
                     <SynziHeader style={{
-                            alignSelf: "stretch" 
+                            alignSelf: "stretch"
                         }} 
                         headerText={'Virtual Care'} />
-                        
-                    {/* <Button style={{
-                            backgroundColor:'#00ffff',
-                            width: 200, 
-                            height: 50,
-                            padding: 10,
-                            borderRadius:30,
-                            alignItems:'center',
-                        }}
-                        title="Learn More"
-                        accessibilityLabel="Learn more about this purple button"
-                        onPress={() => {
-                            this.setModalVisible(true);
-                        }}/> */}
-
-
 
                     <View style={{
                             backgroundColor:'#677288',
                             width: 300, 
-                            height: 300,
+                            height: 280,
                             padding: 10,
                             borderRadius: 10,
                             alignItems:'center'
                         }}>
-                        <Text style={{
-                                justifyContent: 'center', 
-                                marginTop:5,
-                                fontWeight: 'bold',
-                                color: 'white',
-                                fontSize: 18
-                            }}>
+                        <Text style={containerStyle.synziLoggedInUser}>
                             Sign In
                         </Text>
                         <View style={{height: 20}}/>
                         <SynziInput
                             placeholder="username"
                             label="User"
-                            value={''}
+                            value={this.state.userName}
+                            onChangeText={userName => this.setState({ userName })}
                         />
                         <SynziInput
                             placeholder="password"
                             label="Password"
-                            value={''}
+                            value={this.state.password}
+                            onChangeText={password => this.setState({ password })}
                         />
                         <View style={{height: 20}}/>
-                        <TouchableHighlight style={{
-                            backgroundColor:'#ffb100',
-                            width: 200, 
-                            height: 40,
-                            padding: 5,
-                            borderRadius: 10,
-                            alignItems:'center',
-                            marginBottom: 20
-                        }}
-                        onPress={() => {
-                            this.setModalVisible(true);
-                        }}>
-                            <Text style={{
-                                justifyContent: 'center',
-                                fontSize: 18,
-                                color: 'black',
-                                fontWeight: 'bold', 
-                                marginTop:0}}>
+                        <TouchableHighlight 
+                        style={loginButtonDisabled() ? containerStyle.synziButtonStyleDisabled : containerStyle.synziButtonStyle}
+                            onPress={() => {
+                                this.setModalVisible(true);
+                            }}>
+                            <Text style={containerStyle.synziButtonText}>
                                 Sign In
                             </Text>
                         </TouchableHighlight>
-                        
                     </View>
+                    <View>
+                        <Image
+                            style={{
+                                width: 150, 
+                                height: 30,
+                                marginBottom: 10,
+                            }}
+                            resizeMode="contain"
+                            source={require('../../synzi/images/poweredBySynzi.png')}
+                        />
 
-                    <Image
-                        style={{
-                            width: 150, 
-                            height: 30,
-                            marginBottom: 10,
-                        }}
-                        resizeMode="contain"
-                        source={require('../../synzi/images/poweredBySynzi.png')}
-                    />
+                        <Text style={{
+                                justifyContent: 'center',
+                                fontSize: 12,
+                                color: 'black',
+                                textAlign: 'center',
+                                marginTop:0}}>
+                                v2.0
+                        </Text>
+                    </View>
                 </View>
                 
                 <Modal
-                    animationType="fade"
+                    animationType="slide"
                     transparent={false}
                     visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                        alert('Modal has been closed.');
+                    style={{
+                        marginTop:20,
                     }}>
-                    <LocalVideoTrackUnderlay style = { styles.welcomePage }>
-                        <View style = { pageStyle }>
+
+                        <View style={{
+                            flex: 1,
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
+                            alignContent: 'stretch',
+                            backgroundColor:'#7f99ce',
+                        }}>
                             <SynziHeader style={{
-                                alignSelf: "stretch" 
+                                alignSelf: "stretch"
                             }} 
                             headerText={'Virtual Care'} />
 
-                            <TouchableHighlight style={{
-                                    backgroundColor:'#ffb100',
-                                    width: 200, 
-                                    height: 40,
-                                    padding: 10,
-                                    borderRadius: 10,
-                                    alignItems:'center',
-                                    marginBottom: 20
-                                }}
-                                onPress={() => {
-                                    this._onJoin()
-                                    //this.setModalVisible(true);
-                                }}>
-                                    <Text style={{
-                                        justifyContent: 'center',
-                                        fontSize: 18,
-                                        color: 'black',
-                                        fontWeight: 'bold', 
-                                        marginTop:0}}>
+                            <View style={{
+                                backgroundColor:'#677288',
+                                width: 300, 
+                                height: 280,
+                                padding: 10,
+                                borderRadius: 10,
+                                alignItems: 'center'}}>
+
+                                 <Text style={containerStyle.synziLoggedInUser}>
+                                    {'Logged In: ' + this.state.userName}
+                                </Text>
+                                
+                                <TouchableHighlight 
+                                    style={containerStyle.synziButtonStyle}
+                                    onPress={() => {
+                                        this.setState({userName:'', password:''})
+                                        this.setModalVisible(false);
+                                    }}>
+                                    <Text style={containerStyle.synziButtonText}>
+                                        Sign Out
+                                    </Text>
+                                </TouchableHighlight>
+
+                                <View style={{height: 20}}/>
+                                
+                                <Text style={containerStyle.synziLoggedInUser}>
+                                    Enter a room name
+                                </Text>
+                                <SynziInput style={{width: 200, textAlign:'center'}}
+                                    placeholder="room name"
+                                    label="Room Name"
+                                    value={this.state.typedRoomName}
+                                    onChangeText={typedRoomName => this.setState({ typedRoomName })}
+                                />
+                                
+                                <TouchableHighlight 
+                                    style={joinRoomButtonDisabled() ? containerStyle.synziButtonStyleDisabled : containerStyle.synziButtonStyle}
+                                    onPress={() => {
+                                        this._onJoin();
+                                    }}>
+                                    <Text style={containerStyle.synziButtonText}>
                                         Join Room
                                     </Text>
                                 </TouchableHighlight>
 
-                            {/* <SafeAreaView style = { styles.roomContainer } >
+                            </View>
 
-                                
+                            <View>
+                                <Image
+                                    style={{
+                                        width: 150, 
+                                        height: 30,
+                                        marginBottom: 10,
+                                    }}
+                                    resizeMode="contain"
+                                    source={require('../../synzi/images/poweredBySynzi.png')}
+                                />
 
-
-
-
-                                <View style = { styles.joinControls } >
-                                    <TextInput
-                                        accessibilityLabel = { 'Input room name.' }
-                                        autoCapitalize = 'none'
-                                        autoComplete = { false }
-                                        autoCorrect = { false }
-                                        autoFocus = { false }
-                                        onBlur = { this._onFieldFocusChange(false) }
-                                        onChangeText = { this._onRoomChange }
-                                        onFocus = { this._onFieldFocusChange(true) }
-                                        onSubmitEditing = { this._onJoin }
-                                        placeholder = { t('welcomepage.roomname') }
-                                        placeholderTextColor = {
-                                            PLACEHOLDER_TEXT_COLOR
-                                        }
-                                        returnKeyType = { 'go' }
-                                        style = { styles.textInput }
-                                        underlineColorAndroid = 'transparent'
-                                        value = { this.state.room } />
-                                    {
-                                        this._renderHintBox()
-                                    }
-                                </View>
-                            </SafeAreaView> */}
-                            <WelcomePageLists disabled = { this.state._fieldFocused } />
-                            <SettingsView />
+                                <Text style={{
+                                        justifyContent: 'center',
+                                        fontSize: 12,
+                                        color: 'black',
+                                        textAlign: 'center',
+                                        marginTop:0}}>
+                                        v2.0
+                                </Text>
+                            </View>
                         </View>
-                    </LocalVideoTrackUnderlay>
                 </Modal>
             </View>
         );

@@ -31,6 +31,15 @@ static NSString * const ADD_PEOPLE_CONTROLLER_QUERY = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  
+//    // Enables live reload programmatically...!
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//  
+//    NSMutableDictionary *settings = [(NSDictionary *)[defaults valueForKey:@"RCTDevMenu"] mutableCopy];
+//    settings[@"liveReloadEnabled"] = @YES;
+//  
+//    [defaults setObject:settings forKey:@"RCTDevMenu"];
+//    [defaults synchronize];
 
     JitsiMeetView *view = (JitsiMeetView *) self.view;
 

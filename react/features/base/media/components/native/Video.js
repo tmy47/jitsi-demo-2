@@ -8,6 +8,7 @@ import { Pressable } from '../../../react';
 
 import styles from './styles';
 import VideoTransform from './VideoTransform';
+import SynziHeader from '../../../../synzi/SynziHeader'
 
 /**
  * The React Native {@link Component} which is similar to Web's
@@ -111,7 +112,11 @@ export default class Video extends Component<*> {
                         onPress = { onPress }
                         streamId = { stream.id }
                         style = { style }>
-                        { rtcView }
+                        <SynziHeader style={{
+                            alignSelf: "stretch"
+                        }} 
+                        headerText={'Virtual Care'} />
+                        
                     </VideoTransform>
                 );
             }

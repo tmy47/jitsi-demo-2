@@ -13,6 +13,21 @@ import { generateRoomWithoutSeparator } from '../functions';
  */
 type Props = {
 
+     /**
+     * User Name.
+     */
+    _userName: string,
+
+     /**
+     * password.
+     */
+    _password: string,
+
+    /**
+     * user input room name.
+     */
+    _typedRoomName: string,
+
     /**
      * Room name to join to.
      */
@@ -56,7 +71,10 @@ export class AbstractWelcomePage extends Component<Props, *> {
         joining: false,
         room: '',
         roomPlaceholder: '',
-        updateTimeoutId: undefined
+        updateTimeoutId: undefined,
+        userName:'',
+        password:'',
+        typedRoomName:''
     };
 
     /**
@@ -170,7 +188,8 @@ export class AbstractWelcomePage extends Component<Props, *> {
      * @returns {void}
      */
     _onJoin() {
-        const room = 'myroom'
+
+        const room = this.state.typedRoomName;
 
         sendAnalytics(
             createWelcomePageEvent('clicked', 'joinButton', {
@@ -244,6 +263,9 @@ export class AbstractWelcomePage extends Component<Props, *> {
 export function _mapStateToProps(state: Object) {
     return {
         _room: state['features/base/conference'].room,
-        _settings: state['features/base/settings']
+        _settings: state['features/base/settings'],
+        _userName: '',
+        _password: '',
+        _typedRoomName: ''
     };
 }

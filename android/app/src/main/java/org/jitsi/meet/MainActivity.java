@@ -16,6 +16,8 @@
 
 package org.jitsi.meet;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -181,6 +183,12 @@ public class MainActivity extends JitsiMeetActivity {
 
         // The welcome page defaults to disabled in the SDK at the time of this
         // writing but it is clearer to be explicit about what we want anyway.
+
+//        Resources res = mContext.getResources();
+//        Drawable myImage = res.getDrawable(R.drawable.initial_launch);
+//
+//        setContentView(myImage); // Contains just a ViewPager
+
         setWelcomePageEnabled(true);
 
         super.onCreate(savedInstanceState);
