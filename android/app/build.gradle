@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 27
     defaultConfig {
         applicationId 'org.jitsi.meet'
         versionCode Integer.parseInt("${version}")
@@ -30,7 +30,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '24.0.2'
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
