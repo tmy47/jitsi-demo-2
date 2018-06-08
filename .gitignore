@@ -9,8 +9,4 @@
 *.xcuserstate
 *.xcuserdata
 */xcuserdata/*
-*.gradle
-*.idea
-*app
-/android/.gradle
-ios/sdk/sdk.xcodeproj/xcuserdata
+

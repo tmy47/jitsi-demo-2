@@ -2,13 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-
+    compileSdkVersion 24
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
     }
-
     buildTypes {
         debug {}
         release {
@@ -16,14 +14,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '24.0.2'
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:27.0.2'
     compile 'com.facebook.react:react-native:+'
-
     compile project(':react-native-background-timer')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-immersive')
@@ -33,7 +30,6 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-webrtc')
     compile project(':react-native-calendar-events')
-
     testCompile 'junit:junit:4.12'
 }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jitsi-meet.iml" filepath="$PROJECT_DIR$/jitsi-meet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-background-timer/android/react-native-background-timer.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-background-timer/android/react-native-background-timer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-calendar-events/android/react-native-calendar-events.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-calendar-events/android/react-native-calendar-events.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-fetch-blob/android/react-native-fetch-blob.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-fetch-blob/android/react-native-fetch-blob.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-immersive/android/react-native-immersive.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-immersive/android/react-native-immersive.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-keep-awake/android/react-native-keep-awake.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-keep-awake/android/react-native-keep-awake.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-locale-detector/android/react-native-locale-detector.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-locale-detector/android/react-native-locale-detector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-sound/android/react-native-sound.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-sound/android/react-native-sound.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-vector-icons/android/react-native-vector-icons.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-vector-icons/android/react-native-vector-icons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-webrtc/android/react-native-webrtc.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-webrtc/android/react-native-webrtc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk/sdk.iml" filepath="$PROJECT_DIR$/sdk/sdk.iml" />
+    </modules>
+  </component>
+</project>
