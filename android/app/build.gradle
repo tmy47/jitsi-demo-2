@@ -1,22 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        Test_Config {
-            storeFile file('/Users/tparmentier/Desktop/Synzi/Documents/Android_Key')
-            keyAlias 'androidkey'
-        }
-    }
     compileSdkVersion rootProject.ext.compileSdkVersion
+
     defaultConfig {
-        applicationId 'com.synzi.virtualcare'
-        versionCode 6
+        applicationId 'org.jitsi.meet'
+        versionCode Integer.parseInt("${version}")
         versionName "1.9.${version}"
+
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+
         ndk {
             abiFilters 'armeabi-v7a', 'x86'
         }
+
         packagingOptions {
             // The project react-native does not provide 64-bit binaries at the
             // time of this writing. Unfortunately, packaging any 64-bit
@@ -26,20 +24,17 @@ android {
             exclude '/lib/arm64-v8a/**'
             exclude '/lib/x86_64/**'
         }
-        signingConfig signingConfigs.Test_Config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.Test_Config
         }
-    }
-    productFlavors {
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation project(':sdk')
 }
