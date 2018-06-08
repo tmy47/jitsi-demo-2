@@ -3,16 +3,14 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         Test_Config {
-            keyPassword 'seattle47'
             storeFile file('/Users/tparmentier/Desktop/Synzi/Documents/Android_Key')
-            storePassword 'seattle47'
             keyAlias 'androidkey'
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId 'com.synzi.virtualcare'
-        versionCode 5
+        versionCode 6
         versionName "1.9.${version}"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

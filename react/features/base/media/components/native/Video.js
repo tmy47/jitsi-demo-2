@@ -95,12 +95,19 @@ export default class Video extends Component<*> {
                     : (style && style.objectFit) || 'cover';
             const rtcView
                 = ( // eslint-disable-line no-extra-parens
+                    <View>
                     <RTCView
                         mirror = { this.props.mirror }
                         objectFit = { objectFit }
                         streamURL = { stream.toURL() }
                         style = { style }
                         zOrder = { this.props.zOrder } />
+
+                        <SynziHeader style={{
+                            alignSelf: "stretch"
+                        }} 
+                        headerText={'Virtual Care'} />
+                    </View>
                 );
 
             // VideoTransform implements "pinch to zoom". As part of "pinch to
@@ -112,10 +119,7 @@ export default class Video extends Component<*> {
                         onPress = { onPress }
                         streamId = { stream.id }
                         style = { style }>
-                        <SynziHeader style={{
-                            alignSelf: "stretch"
-                        }} 
-                        headerText={'Virtual Care'} />
+
                         
                     </VideoTransform>
                 );
