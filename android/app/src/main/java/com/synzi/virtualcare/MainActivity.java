@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package org.jitsi.meet;
+package com.synzi.virtualcare;
 
 import android.os.Bundle;
 import android.util.Log;
 
+import com.calendarevents.CalendarEventsPackage;
+import com.facebook.react.bridge.UiThreadUtil;
+
+import com.synzi.virtualcare.BuildConfig;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetView;
 import org.jitsi.meet.sdk.JitsiMeetViewListener;
@@ -27,11 +31,7 @@ import org.jitsi.meet.sdk.invite.AddPeopleControllerListener;
 import org.jitsi.meet.sdk.invite.InviteController;
 import org.jitsi.meet.sdk.invite.InviteControllerListener;
 
-import com.calendarevents.CalendarEventsPackage;
-import com.facebook.react.bridge.UiThreadUtil;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

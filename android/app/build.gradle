@@ -3,17 +3,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId 'org.jitsi.meet'
-        versionCode Integer.parseInt("${version}")
+        applicationId 'com.synzi.virtualcare'
         versionName "1.9.${version}"
-
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-
+        minSdkVersion 24
+        targetSdkVersion 24
         ndk {
             abiFilters 'armeabi-v7a', 'x86'
         }
-
         packagingOptions {
             // The project react-native does not provide 64-bit binaries at the
             // time of this writing. Unfortunately, packaging any 64-bit
@@ -31,6 +27,8 @@ android {
         }
     }
     buildToolsVersion '27.0.3'
+    productFlavors {
+    }
 }
 
 dependencies {
