@@ -4,9 +4,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId 'com.synzi.virtualcare'
-        versionName "1.9.${version}"
+        versionName "0.1"
         minSdkVersion 24
-        targetSdkVersion 24
+        versionCode 11
+        targetSdkVersion 26
         ndk {
             abiFilters 'armeabi-v7a', 'x86'
         }
@@ -24,6 +25,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            versionNameSuffix '11'
+        }
+        debug {
+            versionNameSuffix '11'
         }
     }
     buildToolsVersion '27.0.3'
