@@ -176,6 +176,7 @@ public class MainActivity extends JitsiMeetActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         // As this is the Jitsi Meet app (i.e. not the Jitsi Meet SDK), we do
         // want to enable some options.
 
