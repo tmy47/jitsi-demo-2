@@ -35,6 +35,8 @@ import VideoSwitch from './VideoSwitch';
 import WelcomePageLists from './WelcomePageLists';
 import SynziHeader from '../../synzi/SynziHeader';
 import SynziInput from '../../synzi/SynziInput';
+import io from 'socket.io-client'
+
 
 
 
@@ -112,6 +114,17 @@ class WelcomePage extends AbstractWelcomePage {
         this._onFieldFocusChange = this._onFieldFocusChange.bind(this);
         this._onShowSideBar = this._onShowSideBar.bind(this);
         this._renderHintBox = this._renderHintBox.bind(this);
+
+
+        //Socket IO
+        const connectionOptions = {
+            jsonp: false,
+            secure: true,
+            transports: ['websocket'],
+          }
+      
+        this.socket = io('https://dev-stg-api.synzi.com', connectionOptions)
+
 
     }
   

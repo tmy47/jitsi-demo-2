@@ -73,7 +73,8 @@
     "styled-components": "1.4.6",
     "url-polyfill": "github:github/url-polyfill#39734186de44612bc5a16eb25f5407adcc5b2e7c",
     "uuid": "3.1.0",
-    "xmldom": "0.1.27"
+    "xmldom": "0.1.27",
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
