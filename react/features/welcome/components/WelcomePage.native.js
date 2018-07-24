@@ -123,7 +123,7 @@ class WelcomePage extends AbstractWelcomePage {
             transports: ['websocket'],
           }
       
-        this.socket = io('https://dev-stg-api.synzi.com', connectionOptions)
+        this.socket = io('https://api-dev.synzi.com', connectionOptions)
 
 
     }
