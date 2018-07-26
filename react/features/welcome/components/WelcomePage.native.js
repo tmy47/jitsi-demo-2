@@ -44,6 +44,7 @@ class WelcomePage extends AbstractWelcomePage {
 
         this.state._fieldFocused = false;
         this.state.hintBoxAnimation = new Animated.Value(0);
+        this.state.typedRoomName = 'synzi-test';
 
         // Bind event handlers so they are only bound once per instance.
         this._getHintBoxStyle = this._getHintBoxStyle.bind(this);
@@ -92,7 +93,8 @@ class WelcomePage extends AbstractWelcomePage {
 
         /** Entry Point for Synzi App */
         return (
-            <SynziHomeContainerView />
+            <SynziHomeContainerView joinHandler={this._onJoin}
+            />
         );
     }
 

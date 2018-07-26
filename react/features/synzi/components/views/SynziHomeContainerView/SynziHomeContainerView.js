@@ -39,7 +39,7 @@ const styles = {
     },
   }
 
-class SynziHomeContainerView extends Component {
+export default class SynziHomeContainerView extends Component {
     constructor(props) {
       super(props)
   
@@ -58,6 +58,8 @@ class SynziHomeContainerView extends Component {
         notificationMessage: '',
         navigateToLogin: false,
       }
+
+      this.pickerCancelled = this.pickerCancelled.bind(this)
 
     }
 
@@ -114,7 +116,7 @@ class SynziHomeContainerView extends Component {
     /** Initial Render */
     render() {
         /** Only effects iOS */
-        StatusBar.setBarStyle('dark-content', true)
+        StatusBar.setBarStyle('light-content', true)
     
         return (
             <View style={styles.mainContainerStyle}>
@@ -128,7 +130,7 @@ class SynziHomeContainerView extends Component {
                 </TouchableHighlight>
                 <SynziLoginGroupView
                     style={styles.loginGroupContainerStyle}
-                    handleCall={this.callFromBob}
+                    handleCall={this.props.joinHandler}
                 />
                 <View style={styles.dummyBottomView} />
                 <View style={styles.appVersionContainerStyle}>
@@ -139,10 +141,10 @@ class SynziHomeContainerView extends Component {
       }
     }
 
-    export function _mapStateToProps(state: Object) {
-        return {
-            _typedRoomName: ''
-        };
-    }
+    // export function _mapStateToProps(state: Object) {
+    //     return {
+    //         _typedRoomName: ''
+    //     };
+    // }
     
-    export default translate(connect(_mapStateToProps)(SynziHomeContainerView));
+    // export default translate(connect(_mapStateToProps)(SynziHomeContainerView));

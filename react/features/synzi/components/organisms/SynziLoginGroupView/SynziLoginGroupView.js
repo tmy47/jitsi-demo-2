@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native'
-import NativeAuthService from '../../../services/SynziAuthService'
+import SynziAuthService from '../../../services/SynziAuthService'
 
 const styles = {
   mainContainerStyle: {
@@ -68,6 +68,18 @@ const styles = {
   buttonTextDiabledStyle: {
     fontWeight: 'bold',
   },
+  loggedInTextStyleDark: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'center',
+    color: 'black'
+  },
+  loggedInTextStyleLight: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'center',
+    color: 'white'
+  }
 }
 
 export default class SynziLoginGroupView extends Component {
@@ -103,30 +115,36 @@ export default class SynziLoginGroupView extends Component {
 
   /** Sign In */
   async handleSigninClick() {
-    this.setState({
-      signingIn: true,
-      signedIn: false,
-    })
-    const { userName, passWord } = this.state
-    const response = await SynziAuthService.login(userName, passWord)
 
-    if (response.status === 200) {
-      this.setState({
-        signedIn: true,
-        signingIn: false,
-      })
-    } else {
-      this.setState({
-        signedIn: false,
-        signingIn: false,
-      })
-      Alert.alert(
-        'Sign In Error',
-        'The username / password was not recognized',
-        [{ text: 'Ok', onPress: () => null }],
-        { cancelable: false }
-      )
-    }
+    this.setState({
+      signedIn: true,
+      signingIn: false,
+    })
+
+    // this.setState({
+    //   signingIn: true,
+    //   signedIn: false,
+    // })
+    // const { userName, passWord } = this.state
+    // const response = await SynziAuthService.login(userName, passWord)
+
+    // if (response.status === 200) {
+    //   this.setState({
+    //     signedIn: true,
+    //     signingIn: false,
+    //   })
+    // } else {
+    //   this.setState({
+    //     signedIn: false,
+    //     signingIn: false,
+    //   })
+    //   Alert.alert(
+    //     'Sign In Error',
+    //     'The username / password was not recognized',
+    //     [{ text: 'Ok', onPress: () => null }],
+    //     { cancelable: false }
+    //   )
+    // }
   }
 
   /** Sign Out */
@@ -154,20 +172,18 @@ export default class SynziLoginGroupView extends Component {
     return (
       <View style={styles.signingInContainerStyle}>
         <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: 14,
-            textAlign: 'center',
-          }}>
-          {'Signed in as\n'}
+          style={styles.loggedInTextStyleDark}>
+          {'RoomName: '}
           <Text
-            style={{
-              fontWeight: 'normal',
-              fontSize: 24,
-              marginBottom: 30,
-              opacity: 0.9,
-              textAlign: 'center',
-            }}>
+            style={styles.loggedInTextStyleLight}>
+            {'synzi-test\n'}
+          </Text>
+          <Text
+            style={styles.loggedInTextStyleDark}>
+            {'User: '}
+          </Text>
+          <Text
+            style={styles.loggedInTextStyleLight}>
             {this.state.userName}
           </Text>
         </Text>
@@ -218,7 +234,9 @@ export default class SynziLoginGroupView extends Component {
   }
 
   renderSignInForm() {
-    this.validInput = this.isValidInput()
+    //this.validInput = this.isValidInput()
+    this.validInput = true
+    console.log("Valid: "+ this.validInput)
     return (
       <View>
         <TextInput
@@ -236,11 +254,7 @@ export default class SynziLoginGroupView extends Component {
         <TouchableOpacity
           disabled={this.validInput ? false : true}
           onPress={this.handleSigninClick}
-          style={
-            this.validInput
-              ? styles.buttonEnabledStyle
-              : styles.buttonDisabledStyle
-          }>
+          style={this.validInput ? styles.buttonEnabledStyle : styles.buttonDisabledStyle}>
           <Text style={styles.buttonTextDiabledStyle}>SIGN IN</Text>
         </TouchableOpacity>
       </View>
