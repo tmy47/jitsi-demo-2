@@ -20,7 +20,7 @@ import { AbstractWelcomePage, _mapStateToProps } from './AbstractWelcomePage';
 import { setSideBarVisible } from '../actions';
 import LocalVideoTrackUnderlay from './LocalVideoTrackUnderlay';
 import styles, { PLACEHOLDER_TEXT_COLOR } from './styles';
-import SynziHomeContainerView from '../../synzi/components/views/SynziHomeContainerView'
+import SynziHomeContainerView from '../../synzi/components/views/SynziHomeContainerView/SynziHomeContainerView'
 
 
 
