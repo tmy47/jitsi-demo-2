@@ -8,6 +8,10 @@ import {
   Alert,
 } from 'react-native'
 import SynziAuthService from '../../../services/SynziAuthService'
+import SynziSocketServiceView from '../SynziSocketServiceView/SynziSocketServiceView'
+import io from 'socket.io-client'
+
+
 
 const styles = {
   mainContainerStyle: {
@@ -86,15 +90,100 @@ export default class SynziLoginGroupView extends Component {
   constructor(props) {
     super(props)
 
-    this.handleSigninClick = this.handleSigninClick.bind(this)
-    this.handleSignOutClick = this.handleSignOutClick.bind(this)
+      //Bindings
+      this.handleSigninClick = this.handleSigninClick.bind(this)
+      this.handleSignOutClick = this.handleSignOutClick.bind(this)
+      this.sendSocketMessage = this.sendSocketMessage.bind(this)
+      this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
+      this.handleIgnoreCall = this.handleIgnoreCall.bind(this)
+      this.handleAnswerCall = this.handleAnswerCall.bind(this)
+      this.handleHangup = this.handleHangup.bind(this)
+      this.callFromBob = this.callFromBob.bind(this)
 
-    this.state = {
-      userName: '',
-      passWord: '',
-      signingIn: false,
-      signedIn: false,
-    }
+      //Initial State
+      this.state = {
+        userName: '',
+        passWord: '',
+        signingIn: false,
+        signedIn: false,
+        socketOn: false,
+        startingCall: false,
+        personCalled: '',
+        targetCaller: '',
+        callIncoming: false,
+        callerName: '',
+      }
+
+      //Socket Connection
+      const connectionOptions = {
+        jsonp: false,
+        secure: true,
+        transports: ['websocket']
+      }
+  
+      this.socket = io('https://dev-stg-api.synzi.com', connectionOptions)
+  }
+
+
+  componentDidMount() {
+
+      this.socket.on('connect_failed', () => {
+          console.log('connect_failed')
+          this.showSocketOfflineMessage()
+          this.setState({
+              socketConnected: false,
+              socketError: true
+          })
+      })
+
+      this.socket.on('connect', () => {
+          console.log('connected')
+          this.setState({
+              socketConnected: true,
+              socketError: false
+          })
+      })
+
+      this.socket.on('INCOMING-CALL', name => {
+          console.log('INCOMING-CALL')
+          this.callIncoming(name)
+      })
+
+      this.socket.on('CALL-CANCELED', () => {
+          console.log('CALL-CANCELED')
+          //this.setState({ callIncoming: false })
+      })
+
+      this.socket.on('CALL-IGNORED', () => {
+          console.log('CALL-IGNORED')
+          this.setState({ startingCall: false })
+      })
+
+      this.socket.on('CALL-ACCEPTED', () => {
+          console.log('CALL-ACCEPTED')
+          //this.setState({ startVideo: true })
+          this.props.handleCall()
+      })
+
+      this.socket.on('CALL-COMPLETE', () => {
+          console.log('CALL-COMPLETE')
+          this.setState({
+            startingCall: false
+          })
+      })
+
+      this.socket.on('disconnect', () => {
+          console.log('disconnect')
+          this.setState({
+              socketConnected: false,
+              socketError: false,
+              startingCall: false
+          })
+      })
+  }
+
+  componentWillUnmount() {
+      this.socket.close()
   }
 
   /** Text Input Validation */
@@ -113,6 +202,83 @@ export default class SynziLoginGroupView extends Component {
     return false
   }
 
+
+  /** Socket Related */
+  cancelCall() {
+    this.sendSocketMessage('CANCEL-CALL', this.state.personCalled)
+    this.setState({ startingCall: false })
+  }
+
+  handleIgnoreCall() {
+    this.sendSocketMessage('IGNORE-CALL', this.state.callerName)
+    this.setState({ callIncoming: false })
+  }
+
+  handleAnswerCall() {
+    this.sendSocketMessage('ANSWER-CALL', this.state.callerName)
+    this.setState({ answerCall: true })
+  }
+
+  handleHangup() {
+    this.sendSocketMessage('HANGUP', this.state.callerName)
+    this.setState({ startingCall: false })
+  }
+
+  callIncoming(data) {
+    if (this.state.startingCall) {
+      return
+    } else {
+      console.log('Incoming Call: ' + data)
+      // we are recieving a call
+      this.setState({ callIncoming: true, callerName: data })
+
+      Alert.alert(
+        'Incoming Call',
+        'Call from ' + data,
+        [
+          { text: 'Reject', onPress: () => this.handleIgnoreCall() },
+          { text: 'Accept', onPress: () => this.handleAnswerCall() },
+        ],
+        { cancelable: false }
+      )
+    }
+  }
+
+  sendSocketMessage(message, data) {
+      if (this.socket.connected) {
+          this.socket.emit(message, data)
+          return true
+      } else {
+          this.showSocketOfflineMessage()
+          return false
+      }
+  }
+
+  showSocketOfflineMessage() {
+      Alert.alert(
+          'Network Issue',
+          'Sorry, the service is currently offline, please try again later.',
+          [{ text: 'OK', onPress: () => null }],
+          { cancelable: false }
+      )
+  }
+
+
+  handleFavoriteClick(name) {
+    if (this.sendSocketMessage('TICKLE', name)) {
+      this.setState({
+        startingCall: true,
+        personCalled: name,
+      })
+    }
+  }
+
+  callFromBob(){
+    this.handleFavoriteClick(this.state.userName)
+  }
+
+
+
   /** Sign In */
   async handleSigninClick() {
 
@@ -120,6 +286,14 @@ export default class SynziLoginGroupView extends Component {
       signedIn: true,
       signingIn: false,
     })
+
+    if(this.state.userName === ''){
+        this.setState({
+          userName: "Bob"
+      })
+    }
+
+    //this.socketservice.connect()
 
     // this.setState({
     //   signingIn: true,
@@ -151,10 +325,16 @@ export default class SynziLoginGroupView extends Component {
   handleSignOutClick() {
     SynziAuthService.logout()
     this.setState({
-      signedIn: false,
-      signingIn: false,
-      userName: '',
-      passWord: '',
+        userName: '',
+        passWord: '',
+        signingIn: false,
+        signedIn: false,
+        socketOn: false,
+        startingCall: false,
+        personCalled: '',
+        targetCaller: '',
+        callIncoming: false,
+        callerName: '',
     })
   }
 
@@ -171,6 +351,10 @@ export default class SynziLoginGroupView extends Component {
   renderSignedInUI() {
     return (
       <View style={styles.signingInContainerStyle}>
+        <SynziSocketServiceView 
+          socketOn={this.state.socketConnected}
+          socketError={this.state.socketError}
+        />
         <Text
           style={styles.loggedInTextStyleDark}>
           {'RoomName: '}
@@ -189,7 +373,7 @@ export default class SynziLoginGroupView extends Component {
         </Text>
         <TouchableOpacity
           disabled={false}
-          onPress={this.props.handleCall}
+          onPress={this.callFromBob}
           style={styles.buttonEnabledStyle}>
           <Text style={styles.buttonTextDiabledStyle}>CALL</Text>
         </TouchableOpacity>

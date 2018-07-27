@@ -15,6 +15,7 @@ import SynziEnvironmentContainerView from '../SynziEnvironmentContainerView/Synz
 import SynziAppVersionLabelView from '../../atoms/SynziAppVersionLabelView/SynziAppVersionLabelView'
 import SynziLoginGroupView from '../../organisms/SynziLoginGroupView/SynziLoginGroupView'
 
+
 const styles = {
     mainContainerStyle: {
       backgroundColor: '#8099cf',
@@ -43,6 +44,8 @@ export default class SynziHomeContainerView extends Component {
     constructor(props) {
       super(props)
   
+      this.timerId = null
+
       this.state = {
         count: 0,
         modalPickerVisible: false,
@@ -59,8 +62,70 @@ export default class SynziHomeContainerView extends Component {
         navigateToLogin: false,
       }
 
-      this.pickerCancelled = this.pickerCancelled.bind(this)
+    //   const connectionOptions = {
+    //     jsonp: false,
+    //     secure: true,
+    //     transports: ['websocket'],
+    //   }
+  
+    //   this.socket = io('https://dev-stg-api.synzi.com', connectionOptions)
 
+      this.pickerCancelled = this.pickerCancelled.bind(this)
+      //this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
+      this.callFromBob = this.callFromBob.bind(this)
+      //this.sendSocketMessage = this.sendSocketMessage.bind(this)
+      //this.handleNotificationClose = this.handleNotificationClose.bind(this)
+
+
+
+    }
+
+
+    componentDidMount() {
+        // this.socket.on('connect_failed', () => {
+        //   console.log('connect_failed')
+        //   //this.showSocketOfflineMessage()
+        // })
+    
+        // this.socket.on('INCOMING-CALL', name => {
+        //   console.log('INCOMING-CALL')
+        //   //this.callIncoming(name)
+        // })
+    
+        // this.socket.on('CALL-CANCELED', () => {
+        //   console.log('CALL-CANCELED')
+        //   //this.setState({ callIncoming: false })
+        // })
+    
+        // this.socket.on('CALL-IGNORED', () => {
+        //   console.log('CALL-IGNORED')
+        //   //this.setState({ startingCall: false, modalCallUIVisible: false })
+        // })
+    
+        // this.socket.on('CALL-ACCEPTED', () => {
+        //   console.log('CALL-ACCEPTED')
+        //   //this.setState({ startVideo: true })
+        // })
+    
+        // this.socket.on('CALL-COMPLETE', () => {
+        //   console.log('CALL-COMPLETE')
+        //   this.setState({
+        //     startVideo: false,
+        //     callIncoming: false,
+        //     startingCall: false,
+        //     modalCallUIVisible: false,
+        //   })
+        // })
+    
+        // this.socket.on('disconnect', () => {
+        //   console.log('disconnect')
+        //   this.setState({
+        //     startVideo: false,
+        //     callIncoming: false,
+        //     startingCall: false,
+        //     modalCallUIVisible: false,
+        //   })
+        //})
     }
 
     /** Environment Picker Support */
@@ -113,6 +178,12 @@ export default class SynziHomeContainerView extends Component {
     }
 
 
+    callFromBob() {
+        //this.handleFavoriteClick('Bob')
+        this.props.joinHandler()
+    }
+
+
     /** Initial Render */
     render() {
         /** Only effects iOS */
@@ -130,7 +201,7 @@ export default class SynziHomeContainerView extends Component {
                 </TouchableHighlight>
                 <SynziLoginGroupView
                     style={styles.loginGroupContainerStyle}
-                    handleCall={this.props.joinHandler}
+                    handleCall={this.callFromBob}
                 />
                 <View style={styles.dummyBottomView} />
                 <View style={styles.appVersionContainerStyle}>
@@ -138,13 +209,5 @@ export default class SynziHomeContainerView extends Component {
                 </View>
             </View>
         )
-      }
     }
-
-    // export function _mapStateToProps(state: Object) {
-    //     return {
-    //         _typedRoomName: ''
-    //     };
-    // }
-    
-    // export default translate(connect(_mapStateToProps)(SynziHomeContainerView));
+}
