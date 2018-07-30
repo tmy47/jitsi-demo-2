@@ -19,3 +19,4 @@ local.properties
 *.iml
 
 res
+android/app/src/main/res
