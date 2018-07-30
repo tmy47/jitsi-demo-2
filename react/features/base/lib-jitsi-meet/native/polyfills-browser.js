@@ -1,6 +1,7 @@
 import Iterator from 'es6-iterator';
 import BackgroundTimer from 'react-native-background-timer';
-import 'url-polyfill'; // Polyfill for URL constructor
+//import 'url-polyfill'; // Polyfill for URL constructor
+import '@webcomponents/url'; // Polyfill for URL constructor
 
 import { Platform } from '../../react';
 
