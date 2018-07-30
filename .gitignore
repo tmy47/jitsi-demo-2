@@ -10,3 +10,13 @@
 *.xcuserdata
 */xcuserdata/*
 
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+
+res
+android/app/src/main/res
